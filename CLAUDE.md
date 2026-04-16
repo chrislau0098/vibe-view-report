@@ -10,6 +10,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **生产指令见 `PROMPT.md`。该文件是给后续 Claude Code 执行生成的完整指令。**
 
+## Task Logging Rule
+
+每次任务完成后，必须向 `.memory/YYYY-MM-DD.md` 追加一条日志记录（按当天日期命名，文件不存在则新建）。
+
+格式：
+```
+### HH:MM — 一句话描述完成了什么
+- 关键决策：…
+- 下一步：…（无则省略）
+```
+
+`.memory/` 目录已加入 `.gitignore`，不上传 GitHub。
+
 ## Development Workflow
 
 1. **Read First**: `DESIGN.md` → `PROMPT.md` → `docs/references/*.png`
