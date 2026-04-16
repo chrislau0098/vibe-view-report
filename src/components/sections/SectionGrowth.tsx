@@ -7,9 +7,21 @@ import { YoYChart } from "@/components/charts/YoYChart";
 import { SpotlightGradient } from "@/components/primitives/SpotlightGradient";
 
 const growthItems = [
-  { label: "全网直播观看", value: `+${STATS.totalViewers.delta?.value}%` },
-  { label: "人均观看时长", value: `+${STATS.avgDuration.delta?.value}%` },
-  { label: "跨年演讲分会场", value: `+${STATS.venues.delta?.value}%` },
+  {
+    label: "全网直播观看",
+    value: `+${STATS.totalViewers.delta?.value}%`,
+    caption: "观看人次年度同比",
+  },
+  {
+    label: "人均观看时长",
+    value: `+${STATS.avgDuration.delta?.value}%`,
+    caption: "深度参与指数倍增",
+  },
+  {
+    label: "跨年演讲分会场",
+    value: `+${STATS.venues.delta?.value}%`,
+    caption: "线下场馆覆盖扩张",
+  },
 ];
 
 export function SectionGrowth() {
@@ -25,74 +37,113 @@ export function SectionGrowth() {
           initial={{ opacity: 0, x: -20 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6, ease: EASE.out }}
-          className="mb-12"
+          className="mb-14"
         >
           <ChapterStamp number={5} />
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: EASE.out, delay: 0.1 }}
-          className="text-foreground-3 text-sm tracking-[0.2em] uppercase mb-4"
+          className="mb-4 space-y-3"
         >
-          年度增长
-        </motion.p>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: EASE.out, delay: 0.15 }}
-          className="text-foreground mb-4 leading-[1.1]"
-          style={{
-            fontFamily: "var(--font-chinese-serif)",
-            fontSize: "clamp(24px, 4.5vw, 40px)",
-            letterSpacing: "-0.5px",
-          }}
-        >
-          做时间的朋友的第四年
-        </motion.h2>
+          <span className="inline-flex items-center rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] bg-white/5 border border-white/10 text-foreground-3">
+            年度增长
+          </span>
+          <h2
+            className="text-foreground leading-[1.1]"
+            style={{
+              fontFamily: "var(--font-chinese-sans)",
+              fontSize: "clamp(22px, 4vw, 36px)",
+              fontWeight: 450,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            做时间的朋友的第四年
+          </h2>
+        </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: EASE.out, delay: 0.2 }}
-          className="text-foreground-2 text-base mb-12 leading-relaxed"
+          transition={{ duration: 0.6, ease: EASE.out, delay: 0.2 }}
+          className="text-foreground-2 text-base mb-6 leading-relaxed"
+          style={{ maxWidth: "44ch", fontWeight: 300 }}
         >
           从 2850 万到 4765.7 万，四年持续上扬的时间曲线。
         </motion.p>
 
-        {/* Chart */}
+        {/* Chart label */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.22 }}
+          className="text-foreground-3 text-xs tracking-wider uppercase mb-4"
+          style={{ fontWeight: 300 }}
+        >
+          全网直播观看 · 2023–2026（万人）
+        </motion.p>
+
+        {/* Chart — bleed to section edges */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: EASE.out, delay: 0.25 }}
-          className="rounded-2xl border border-border-strong p-6 md:p-8 mb-10"
-          style={{ background: "oklch(0.14 0.012 260)" }}
+          className="relative mb-12 -mx-6 md:-mx-16"
         >
-          <p className="text-foreground-3 text-xs tracking-wider uppercase mb-4">全网直播观看 · 2023–2026（万人）</p>
-          <YoYChart />
+          <div className="h-[420px] md:h-[560px] relative">
+            <YoYChart />
+            {/* Hero-scale endpoint annotation */}
+            <div
+              className="absolute top-8 right-6 md:top-12 md:right-16 pointer-events-none leading-[0.88] tracking-[-0.04em]"
+              style={{
+                fontSize: "clamp(48px, 6vw, 80px)",
+                fontFamily: "var(--font-sans)",
+                fontWeight: 500,
+                color: "var(--primary-hl)",
+                fontFeatureSettings: '"tnum"',
+                fontVariationSettings: "'opsz' 72",
+              }}
+            >
+              +33.85%
+            </div>
+          </div>
         </motion.div>
 
-        {/* Growth summary rows */}
-        <div className="space-y-4">
-          {growthItems.map((item, idx) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, x: -20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, ease: EASE.out, delay: 0.4 + idx * 0.1 }}
-              className="flex items-center justify-between py-4 border-b border-border"
-            >
-              <span className="text-foreground-2 text-sm md:text-base">{item.label}</span>
-              <span
-                className="font-semibold text-primary text-lg md:text-2xl tabular-nums"
-                style={{ fontFamily: "var(--font-sans)", fontFeatureSettings: '"tnum"' }}
+        {/* Growth metric grid — double-bezel */}
+        <div className="p-1.5 ring-1 ring-white/5 rounded-[2rem] overflow-hidden">
+          <div
+            className="grid grid-cols-1 md:grid-cols-3 gap-px rounded-[calc(2rem-0.375rem)] overflow-hidden"
+            style={{ background: "var(--border-strong)" }}
+          >
+            {growthItems.map((item, idx) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, ease: EASE.out, delay: 0.45 + idx * 0.1 }}
+                className="flex flex-col gap-3 p-8"
+                style={{ background: "var(--surface-l2)" }}
               >
-                {item.value}
-              </span>
-            </motion.div>
-          ))}
+                <p className="text-foreground-3 text-xs tracking-wider uppercase" style={{ fontWeight: 300 }}>
+                  {item.label}
+                </p>
+                <div
+                  className="leading-[0.9] tracking-[-0.04em] text-primary"
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "clamp(40px, 6vw, 72px)",
+                    fontWeight: 600,
+                    fontFeatureSettings: '"tnum"',
+                  }}
+                >
+                  {item.value}
+                </div>
+                <p className="text-foreground-3 text-xs" style={{ fontWeight: 300 }}>{item.caption}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

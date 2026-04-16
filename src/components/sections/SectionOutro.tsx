@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { EASE } from "@/lib/easings";
 import { REPORT_META } from "@/data";
-import { OwlSilhouette } from "@/components/primitives/OwlSilhouette";
 import { SpotlightGradient } from "@/components/primitives/SpotlightGradient";
 
 export function SectionOutro() {
@@ -12,7 +11,7 @@ export function SectionOutro() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-32 md:py-48 px-6"
+      className="relative overflow-hidden py-32 md:py-56 px-6"
       style={{ background: "oklch(0.11 0.012 260)" }}
     >
       <SpotlightGradient position="bottom-center" hue="orange" intensity={0.8} />
@@ -24,26 +23,28 @@ export function SectionOutro() {
       />
 
       <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
-        {/* Owl */}
+        {/* Decorative horizontal rule */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, ease: EASE.bounce, delay: 0.1 }}
-        >
-          <OwlSilhouette size={100} className="text-primary opacity-70" />
-        </motion.div>
+          initial={{ scaleX: 0 }}
+          animate={inView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1.0, delay: 0.1, ease: EASE.out }}
+          className="w-16 h-px origin-center"
+          style={{ background: "oklch(0.65 0.175 42 / 0.5)" }}
+        />
 
         {/* Main title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.0, ease: EASE.out, delay: 0.3 }}
+          transition={{ duration: 1.0, ease: EASE.out, delay: 0.25 }}
         >
           <h2
-            className="font-semibold leading-[1.05] tracking-[-1px] text-foreground"
+            className="leading-[1.05] tracking-[-1px] text-foreground"
             style={{
-              fontFamily: "var(--font-chinese-serif)",
+              fontFamily: "var(--font-chinese-sans)",
               fontSize: "clamp(52px, 10vw, 100px)",
+              fontWeight: 450,
+              letterSpacing: "-0.02em",
             }}
           >
             做时间的朋友
@@ -54,7 +55,7 @@ export function SectionOutro() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: EASE.out, delay: 0.6 }}
+          transition={{ duration: 0.8, ease: EASE.out, delay: 0.5 }}
           className="text-foreground-2 text-lg leading-relaxed"
           style={{ fontFamily: "var(--font-chinese-sans)" }}
         >
@@ -65,7 +66,7 @@ export function SectionOutro() {
         <motion.div
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.8, ease: EASE.out }}
+          transition={{ duration: 0.8, delay: 0.7, ease: EASE.out }}
           className="w-24 h-px origin-center"
           style={{ background: "oklch(0.65 0.175 42 / 0.4)" }}
         />
@@ -74,7 +75,7 @@ export function SectionOutro() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 1.0 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
           className="flex flex-col items-center gap-1.5"
         >
           <p className="text-foreground-3 text-xs tracking-widest">

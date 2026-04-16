@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "@fontsource-variable/geist";
-@import "@fontsource-variable/noto-serif-sc";
 @import "@fontsource-variable/noto-sans-sc";
 @import "shadcn/tailwind.css";
 
@@ -10,7 +9,7 @@
 @theme inline {
   --font-sans: 'Geist Variable', -apple-system, system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
-  --font-chinese-serif: 'Noto Serif SC Variable', 'Source Han Serif SC', serif;
+  --font-chinese-display: 'Noto Sans SC Variable', 'PingFang SC', 'Source Han Sans SC', sans-serif;
   --font-chinese-sans:  'Noto Sans SC Variable', 'PingFang SC', 'Source Han Sans SC', sans-serif;
 
   --color-background:           var(--background);

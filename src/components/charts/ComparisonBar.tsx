@@ -29,8 +29,8 @@ export function ComparisonBar({ items, maxValue, className }: ComparisonBarProps
             <div className="flex items-baseline justify-between gap-4">
               <span className="text-sm text-foreground-2 font-medium">{item.label}</span>
               <span
-                className="font-semibold tabular-nums"
-                style={{ fontFamily: "'Geist Variable', monospace", color: item.accent ? "oklch(0.73 0.185 48)" : undefined }}
+                className="font-medium tabular-nums"
+                style={{ fontFamily: "'Geist Variable', monospace", color: item.accent ? "var(--primary-hl)" : undefined }}
               >
                 {item.value}
                 {item.unit && (
@@ -43,8 +43,8 @@ export function ComparisonBar({ items, maxValue, className }: ComparisonBarProps
                 className="h-full rounded-full origin-left"
                 style={{
                   background: item.accent
-                    ? "linear-gradient(to right, oklch(0.65 0.175 42), oklch(0.73 0.185 48))"
-                    : "oklch(0.35 0.04 260)",
+                    ? "linear-gradient(to right, var(--primary), var(--primary-hl))"
+                    : "var(--chart-5)",
                 }}
                 initial={{ scaleX: 0 }}
                 animate={inView ? { scaleX: pct / 100 } : {}}

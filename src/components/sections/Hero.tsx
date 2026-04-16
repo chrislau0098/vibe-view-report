@@ -5,33 +5,30 @@ import { RollingNumber } from "@/components/primitives/RollingNumber";
 import { DeltaBadge } from "@/components/primitives/DeltaBadge";
 import { SpotlightGradient } from "@/components/primitives/SpotlightGradient";
 import { GrowthCurve } from "@/components/charts/GrowthCurve";
-import { OwlSilhouette } from "@/components/primitives/OwlSilhouette";
+import { HeroShaderBackdrop } from "@/components/primitives/ShaderBackdrop";
 
 const stat = STATS.totalViewers;
+const NUMBER_DELAY = 0.9;
+const NUMBER_DURATION = 2.4;
+const BADGE_DELAY = NUMBER_DELAY + NUMBER_DURATION + 0.2;
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 py-24">
-      {/* Backgrounds */}
-      <SpotlightGradient position="top-center" hue="orange" intensity={1} animate />
-      <SpotlightGradient position="top-left" hue="cool" intensity={0.6} />
-
-      {/* Noise texture overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.025]"
-        style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "256px 256px" }}
-      />
+      {/* WebGL shader backdrop */}
+      <HeroShaderBackdrop />
+      {/* CSS spotlights layered on top of shader */}
+      <SpotlightGradient position="top-center" hue="orange" intensity={0.8} animate />
+      <SpotlightGradient position="top-left" hue="cool" intensity={0.5} />
 
       <div className="relative z-10 max-w-4xl w-full mx-auto text-center flex flex-col items-center gap-6">
-        {/* Owl + eyebrow */}
+        {/* Eyebrow pill */}
         <motion.div
-          className="flex flex-col items-center gap-3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: EASE.out }}
         >
-          <OwlSilhouette size={52} className="text-primary opacity-80" />
-          <span className="text-xs font-medium tracking-[0.3em] uppercase text-foreground-3">
+          <span className="inline-flex items-center rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] bg-white/5 border border-white/10 text-foreground-3">
             The 2026 Annual Report
           </span>
         </motion.div>
@@ -44,19 +41,22 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.4, ease: EASE.out }}
         >
           <h1
-            className="font-semibold leading-[1.1] tracking-[-1px] text-foreground"
+            className="leading-[1.1] tracking-[-1px] text-foreground"
             style={{
-              fontFamily: "var(--font-chinese-serif)",
+              fontFamily: "var(--font-chinese-sans)",
               fontSize: "clamp(36px, 7vw, 64px)",
+              fontWeight: 450,
+              letterSpacing: "-0.02em",
             }}
           >
             {REPORT_META.title}
           </h1>
           <p
-            className="font-medium leading-[1.1] text-foreground-2"
+            className="leading-[1.1] text-foreground-2"
             style={{
-              fontFamily: "var(--font-chinese-serif)",
+              fontFamily: "var(--font-chinese-sans)",
               fontSize: "clamp(24px, 4.5vw, 48px)",
+              fontWeight: 400,
             }}
           >
             {REPORT_META.subtitle}
@@ -71,11 +71,13 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.8, ease: EASE.out }}
         >
           <div
-            className="font-semibold leading-[0.9] tracking-[-0.04em] text-primary-hl"
+            className="leading-[0.88] tracking-[-0.045em]"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: "clamp(88px, 18vw, 200px)",
-              color: "oklch(0.73 0.185 48)",
+              color: "var(--primary-hl)",
+              fontWeight: 500,
+              fontVariationSettings: "'opsz' 72",
               fontFeatureSettings: '"cv01", "ss03", "tnum"',
             }}
           >
@@ -83,8 +85,8 @@ export function Hero() {
               value={stat.value}
               precision={1}
               suffix={stat.unit}
-              duration={2.4}
-              delay={0.9}
+              duration={NUMBER_DURATION}
+              delay={NUMBER_DELAY}
               suffixClassName="text-[0.28em] font-normal ml-[0.08em] text-foreground-2"
             />
           </div>
@@ -103,7 +105,7 @@ export function Hero() {
                 value={stat.delta.value}
                 label={stat.delta.label}
                 direction={stat.delta.direction}
-                delay={2.4}
+                delay={BADGE_DELAY}
               />
             )}
           </motion.div>
@@ -111,6 +113,7 @@ export function Hero() {
 
         {/* Scroll indicator */}
         <motion.div
+          aria-hidden="true"
           className="flex flex-col items-center gap-1.5 text-foreground-3 text-xs tracking-widest"
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 0.6, 1] }}
@@ -127,14 +130,14 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Decorative growth curve — bottom right */}
+      {/* Full-width horizon growth curve */}
       <motion.div
-        className="absolute bottom-12 right-4 sm:right-12 w-48 sm:w-72 opacity-30"
+        className="absolute inset-x-0 bottom-0 w-full h-[40%] pointer-events-none"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.3 }}
-        transition={{ duration: 1, delay: 2.6 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ duration: 1.2, delay: 2.6, ease: EASE.out }}
       >
-        <GrowthCurve />
+        <GrowthCurve className="w-full h-full" decorative />
       </motion.div>
 
       {/* Data deadline */}
