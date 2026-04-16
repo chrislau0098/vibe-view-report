@@ -1,12 +1,6 @@
-import { useEffect, useRef } from "react";
-import {
-  useMotionValue,
-  useTransform,
-  animate,
-  motion,
-  useInView,
-} from "motion/react";
-
+import { useRef, useState, useEffect } from "react";
+import { useInView, useReducedMotion } from "motion/react";
+import { AnimateNumber } from "motion-plus/react";
 
 interface RollingNumberProps {
   value: number;
@@ -24,42 +18,44 @@ export function RollingNumber({
   precision = 1,
   suffix,
   prefix,
-  duration = 2.0,
+  duration = 1.0,
   delay = 0,
   className,
   suffixClassName,
 }: RollingNumberProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
-  const mv = useMotionValue(0);
-  const rounded = useTransform(mv, (v) => v.toFixed(precision));
+  const prefersReducedMotion = useReducedMotion();
 
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Start at 0, animate to value once in view
+  const [displayed, setDisplayed] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
-    if (prefersReducedMotion) {
-      mv.set(value);
-      return;
-    }
-    const controls = animate(mv, value, {
-      duration,
-      delay,
-      // [0.25, 1, 0.5, 1]: gentler start than EASE.out so digits don't race
-      // past too quickly; decelerates smoothly into the final value
-      ease: [0.25, 1, 0.5, 1],
-    });
-    return () => controls.stop();
-  }, [inView, value, duration, delay, mv, prefersReducedMotion]);
+    const delayMs = prefersReducedMotion ? 0 : delay * 1000;
+    const timer = setTimeout(() => {
+      setDisplayed(value);
+    }, delayMs);
+    return () => clearTimeout(timer);
+  }, [inView, value, delay, prefersReducedMotion, setDisplayed]);
 
   return (
     <span ref={ref} className={className}>
       {prefix && <span>{prefix}</span>}
-      <motion.span style={{ fontFeatureSettings: '"cv01", "ss03", "tnum"' }}>
-        {rounded}
-      </motion.span>
+      <AnimateNumber
+        style={{ fontFeatureSettings: '"cv01", "ss03", "tnum"' }}
+        transition={{
+          layout: { duration: duration * 0.4 },
+          y: {
+            type: "spring",
+            visualDuration: duration,
+            bounce: 0.1,
+          },
+          opacity: { duration: 0.18, ease: "linear" },
+        }}
+      >
+        {parseFloat(displayed.toFixed(precision))}
+      </AnimateNumber>
       {suffix && (
         <span className={suffixClassName ?? "text-[0.4em] font-normal tracking-normal ml-[0.1em]"}>
           {suffix}
