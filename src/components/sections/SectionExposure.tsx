@@ -90,28 +90,22 @@ export function SectionExposure() {
               />
             </div>
 
-            {/* × operator */}
+            {/* × 2.78 operator — inline on one line */}
             <motion.div
               initial={{ opacity: 0, scale: 0.6 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.85, ease: EASE.bounce }}
-              className="text-center flex flex-col items-center gap-1"
+              className="text-center whitespace-nowrap"
             >
               <span
-                className="text-primary"
+                className="text-primary tabular-nums"
                 style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(28px, 5vw, 56px)", fontWeight: 600 }}
               >
-                ×
+                × 2.78
               </span>
-              <p
-                className="text-primary tabular-nums"
-                style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(14px, 2vw, 20px)", fontWeight: 600 }}
-              >
-                2.78
-              </p>
             </motion.div>
 
-            {/* Spacer (invisible placeholder to align "=" to the right) */}
+            {/* Spacer */}
             <div />
 
             {/* = operator */}
@@ -163,7 +157,7 @@ export function SectionExposure() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 1.4 }}
             className="text-foreground-3 text-sm pt-4"
-            style={{ maxWidth: "55ch", fontWeight: 300 }}
+            style={{ maxWidth: "38ch", fontWeight: 300, textWrap: "balance" as const }}
           >
             线上内容曝光经由电视、户外、媒体等渠道放大 2.78 倍，整体社会影响力达 14.22 亿次。
           </motion.p>

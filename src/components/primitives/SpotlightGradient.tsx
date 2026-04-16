@@ -38,7 +38,7 @@ export function SpotlightGradient({
         style={{ background: gradient }}
         animate={{ x: [0, 40, -30, 0], opacity: [1, 0.85, 1, 0.9, 1] }}
         transition={{
-          duration: 14,
+          duration: 7,
           repeat: Infinity,
           ease: EASE.inOut,
           times: [0, 0.3, 0.6, 1],

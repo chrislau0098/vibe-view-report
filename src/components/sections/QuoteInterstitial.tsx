@@ -25,29 +25,49 @@ export function QuoteInterstitial({ quote, attribution }: QuoteInterstitialProps
         }}
       />
 
-      <div className="relative z-10 max-w-3xl text-center space-y-6">
-        <motion.p
-          initial={{ opacity: 0, y: 24 }}
+      <div className="relative z-10 max-w-2xl w-full flex flex-col items-center gap-5">
+        {/* Decorative quotation mark */}
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.0, ease: EASE.out }}
-          className="text-foreground leading-[1.3] tracking-[-0.01em]"
+          transition={{ duration: 0.6, ease: EASE.out }}
+          aria-hidden="true"
           style={{
-            fontFamily: "var(--font-chinese-sans)",
-            fontSize: "clamp(26px, 5vw, 52px)",
-            fontWeight: 300,
-            textWrap: "balance" as const,
-            overflowWrap: "break-word",
+            fontFamily: "Georgia, 'Times New Roman', serif",
+            fontSize: "clamp(64px, 10vw, 96px)",
+            lineHeight: 1,
+            color: "var(--primary)",
+            opacity: 0.5,
+            fontWeight: 700,
+            userSelect: "none",
           }}
         >
-          &#8220;{quote}&#8221;
+          "
+        </motion.div>
+
+        {/* Quote text — max 2 lines */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.0, ease: EASE.out, delay: 0.15 }}
+          className="text-foreground text-center leading-[1.4]"
+          style={{
+            fontFamily: "var(--font-chinese-sans)",
+            fontSize: "clamp(22px, 4vw, 40px)",
+            fontWeight: 300,
+            textWrap: "balance" as const,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          {quote}
         </motion.p>
 
         {attribution && (
           <motion.p
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-foreground-3 text-sm tracking-[0.15em] uppercase"
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="text-foreground-3 text-sm tracking-[0.15em] uppercase text-center"
             style={{ fontWeight: 300 }}
           >
             — {attribution}

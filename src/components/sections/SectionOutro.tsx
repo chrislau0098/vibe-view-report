@@ -12,13 +12,30 @@ export function SectionOutro() {
     <section
       ref={ref}
       className="relative overflow-hidden py-32 md:py-56 px-6"
-      style={{ background: "oklch(0.11 0.012 260)" }}
+      style={{ background: "oklch(0.09 0.008 260)" }}
     >
-      <SpotlightGradient position="bottom-center" hue="orange" intensity={0.8} />
+      {/* Multi-layer background atmosphere */}
+      <SpotlightGradient position="bottom-center" hue="orange" intensity={0.6} />
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 h-[400px]"
         style={{
-          background: "radial-gradient(ellipse 1000px 400px at 50% 100%, oklch(0.65 0.175 42 / 0.15), transparent 70%)",
+          background: "radial-gradient(ellipse 900px 350px at 50% 100%, oklch(0.65 0.175 42 / 0.12), transparent 70%)",
+        }}
+      />
+      {/* Noise texture overlay */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+          opacity: 0.025,
+          mixBlendMode: "overlay",
+        }}
+      />
+      {/* Horizontal gradient vignette */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: "linear-gradient(to bottom, transparent 0%, oklch(0.07 0.006 260 / 0.6) 100%)",
         }}
       />
 
@@ -28,23 +45,23 @@ export function SectionOutro() {
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
           transition={{ duration: 1.0, delay: 0.1, ease: EASE.out }}
-          className="w-16 h-px origin-center"
-          style={{ background: "oklch(0.65 0.175 42 / 0.5)" }}
+          className="w-12 h-px origin-center"
+          style={{ background: "oklch(0.65 0.175 42 / 0.4)" }}
         />
 
-        {/* Main title */}
+        {/* Main title — refined, not oversized */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.0, ease: EASE.out, delay: 0.25 }}
         >
           <h2
-            className="leading-[1.05] tracking-[-1px] text-foreground"
+            className="leading-[1.1] text-foreground"
             style={{
               fontFamily: "var(--font-chinese-sans)",
-              fontSize: "clamp(52px, 10vw, 100px)",
-              fontWeight: 450,
-              letterSpacing: "-0.02em",
+              fontSize: "clamp(32px, 6vw, 56px)",
+              fontWeight: 300,
+              letterSpacing: "0.1em",
             }}
           >
             做时间的朋友
@@ -53,11 +70,11 @@ export function SectionOutro() {
 
         {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: EASE.out, delay: 0.5 }}
-          className="text-foreground-2 text-lg leading-relaxed"
-          style={{ fontFamily: "var(--font-chinese-sans)" }}
+          className="text-foreground-3 text-sm leading-relaxed tracking-[0.05em]"
+          style={{ fontFamily: "var(--font-chinese-sans)", fontWeight: 300 }}
         >
           感谢每一位长期主义者
         </motion.p>
@@ -67,8 +84,8 @@ export function SectionOutro() {
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.7, ease: EASE.out }}
-          className="w-24 h-px origin-center"
-          style={{ background: "oklch(0.65 0.175 42 / 0.4)" }}
+          className="w-20 h-px origin-center"
+          style={{ background: "oklch(0.65 0.175 42 / 0.3)" }}
         />
 
         {/* Branding */}
@@ -81,8 +98,8 @@ export function SectionOutro() {
           <p className="text-foreground-3 text-xs tracking-widest">
             {REPORT_META.brand} · {REPORT_META.dataDeadline}
           </p>
-          <p className="text-foreground-3 text-[10px] tracking-wider opacity-50">
-            Generated with care · Claude Code × Nova Design Supervisor
+          <p className="text-foreground-3 text-[10px] tracking-wider opacity-40">
+            Powered by 飞书多维表格
           </p>
         </motion.div>
       </div>

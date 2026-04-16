@@ -121,7 +121,7 @@ export function SectionDepth() {
               </div>
             )}
 
-            <p className="text-foreground-3 text-sm pt-2" style={{ maxWidth: "36ch", fontWeight: 300 }}>
+            <p className="text-foreground-3 text-sm pt-2" style={{ maxWidth: "36ch", fontWeight: 300, textWrap: "balance" as const }}>
               人均每场观看超 20 分钟，深度投入程度远超行业均值
             </p>
           </motion.div>
@@ -187,7 +187,7 @@ export function SectionDepth() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 1.4 }}
               className="text-foreground-3 text-xs leading-relaxed italic"
-              style={{ maxWidth: "28ch", fontWeight: 300 }}
+              style={{ maxWidth: "28ch", fontWeight: 300, textWrap: "balance" as const }}
             >
               "时间" 不只是演讲主题——它是用户与内容最真实的承诺
             </motion.p>

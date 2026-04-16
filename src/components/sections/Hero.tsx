@@ -44,19 +44,19 @@ export function Hero() {
             className="leading-[1.1] tracking-[-1px] text-foreground"
             style={{
               fontFamily: "var(--font-chinese-sans)",
-              fontSize: "clamp(36px, 7vw, 64px)",
-              fontWeight: 450,
-              letterSpacing: "-0.02em",
+              fontSize: "clamp(20px, 3.2vw, 38px)",
+              fontWeight: 300,
+              letterSpacing: "0em",
             }}
           >
             {REPORT_META.title}
           </h1>
           <p
-            className="leading-[1.1] text-foreground-2"
+            className="leading-[1.1] text-foreground-3"
             style={{
               fontFamily: "var(--font-chinese-sans)",
-              fontSize: "clamp(24px, 4.5vw, 48px)",
-              fontWeight: 400,
+              fontSize: "clamp(14px, 2.2vw, 24px)",
+              fontWeight: 300,
             }}
           >
             {REPORT_META.subtitle}
@@ -134,7 +134,7 @@ export function Hero() {
       <motion.div
         className="absolute inset-x-0 bottom-0 w-full h-[40%] pointer-events-none"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.6 }}
+        animate={{ opacity: 0.25 }}
         transition={{ duration: 1.2, delay: 2.6, ease: EASE.out }}
       >
         <GrowthCurve className="w-full h-full" decorative />

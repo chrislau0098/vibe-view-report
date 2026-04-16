@@ -76,15 +76,15 @@ export function SectionViewership() {
                     transition={{ duration: 2.0, delay: 0.4, ease: EASE.out }}
                     style={{ rotate: -90, transformOrigin: "100px 100px" }}
                   />
-                  {/* Center: percentage */}
-                  <text x="100" y="92" textAnchor="middle" fontSize="26"
+                  {/* Center: percentage — vertically centered in ring */}
+                  <text x="100" y="97" textAnchor="middle" fontSize="26"
                     fill="var(--primary-hl)"
                     fontFamily="'Geist Variable', monospace"
                     fontWeight="400"
                     style={{ fontFeatureSettings: '"tnum"' }}>
                     68.2%
                   </text>
-                  <text x="100" y="112" textAnchor="middle" fontSize="9.5"
+                  <text x="100" y="113" textAnchor="middle" fontSize="9.5"
                     fill="var(--foreground-3)"
                     fontFamily="var(--font-chinese-sans)">
                     视频号占全网比
@@ -199,7 +199,6 @@ export function SectionViewership() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 1.2 }}
               className="text-foreground-2 text-sm leading-relaxed pt-2"
-              style={{ maxWidth: "24ch" }}
             >
               视频号成为本届主阵地，占据超三分之二观看份额
             </motion.p>

@@ -68,6 +68,32 @@ export function GrowthCurve({ className, decorative = false }: GrowthCurveProps)
         transition={{ duration: decorative ? 3.2 : 2.4, ease: EASE.out }}
       />
 
+      {/* Decorative mode: glow dots along the curve path */}
+      {decorative && (
+        <>
+          {[{ cx: 130, cy: 140 }, { cx: 220, cy: 75 }, { cx: 310, cy: 15 }].map(({ cx, cy }, i) => (
+            <motion.circle
+              key={`mid-${i}`}
+              cx={cx} cy={cy} r="3"
+              fill="var(--primary-hl)"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={inView ? { opacity: 0.4, scale: 1 } : {}}
+              transition={{ duration: 0.4, delay: 1.0 + i * 0.3, ease: EASE.bounce }}
+              style={{ transformOrigin: `${cx}px ${cy}px` }}
+            />
+          ))}
+          <motion.g
+            initial={{ opacity: 0, scale: 0 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 3.0, ease: EASE.bounce }}
+            style={{ transformOrigin: "390px 2px" }}
+          >
+            <circle cx="390" cy="2" r="10" fill="var(--primary-hl)" opacity="0.15" filter="url(#endGlow)" />
+            <circle cx="390" cy="2" r="4" fill="var(--primary-hl)" filter="url(#endGlow)" />
+          </motion.g>
+        </>
+      )}
+
       {/* End data point + label — hidden in decorative mode */}
       {!decorative && (
         <>
