@@ -42,7 +42,7 @@ export function QuoteInterstitial({ quote, attribution }: QuoteInterstitialProps
             userSelect: "none",
           }}
         >
-          "
+          {'\u201C'}
         </motion.div>
 
         {/* Quote text — max 2 lines */}

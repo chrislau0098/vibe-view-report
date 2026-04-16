@@ -16,8 +16,11 @@ export function GrowthCurve({ className, decorative = false }: GrowthCurveProps)
   const ref = useRef<SVGSVGElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
 
-  const curvePath =
-    "M 10,180 C 60,175 90,160 130,140 C 170,120 180,100 220,75 C 260,50 290,30 310,15 C 325,5 340,4 390,2";
+  // Decorative: single smooth cubic bezier (no inflection, maximum smoothness)
+  // Default: multi-segment path that matches year-over-year data shape
+  const curvePath = decorative
+    ? "M 0,195 C 100,193 220,110 400,3"
+    : "M 10,180 C 60,175 90,160 130,140 C 170,120 180,100 220,75 C 260,50 290,30 310,15 C 325,5 340,4 390,2";
 
   return (
     <svg
@@ -32,8 +35,8 @@ export function GrowthCurve({ className, decorative = false }: GrowthCurveProps)
     >
       <defs>
         <linearGradient id="curveGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="oklch(0.45 0.12 42)" />
-          <stop offset="50%" stopColor="oklch(0.65 0.175 42)" />
+          <stop offset="0%" stopColor="oklch(0.45 0.12 42 / 0)" />
+          <stop offset="30%" stopColor="oklch(0.55 0.14 42)" />
           <stop offset="100%" stopColor="oklch(0.73 0.185 48)" />
         </linearGradient>
         <filter id="endGlow">
@@ -61,38 +64,15 @@ export function GrowthCurve({ className, decorative = false }: GrowthCurveProps)
         d={curvePath}
         fill="none"
         stroke="url(#curveGrad)"
-        strokeWidth={decorative ? "1.5" : "2.5"}
+        strokeWidth={decorative ? "0.8" : "2.5"}
         strokeLinecap="round"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={inView ? { pathLength: 1, opacity: 1 } : {}}
         transition={{ duration: decorative ? 3.2 : 2.4, ease: EASE.out }}
       />
 
-      {/* Decorative mode: glow dots along the curve path */}
-      {decorative && (
-        <>
-          {[{ cx: 130, cy: 140 }, { cx: 220, cy: 75 }, { cx: 310, cy: 15 }].map(({ cx, cy }, i) => (
-            <motion.circle
-              key={`mid-${i}`}
-              cx={cx} cy={cy} r="3"
-              fill="var(--primary-hl)"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={inView ? { opacity: 0.4, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: 1.0 + i * 0.3, ease: EASE.bounce }}
-              style={{ transformOrigin: `${cx}px ${cy}px` }}
-            />
-          ))}
-          <motion.g
-            initial={{ opacity: 0, scale: 0 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 3.0, ease: EASE.bounce }}
-            style={{ transformOrigin: "390px 2px" }}
-          >
-            <circle cx="390" cy="2" r="10" fill="var(--primary-hl)" opacity="0.15" filter="url(#endGlow)" />
-            <circle cx="390" cy="2" r="4" fill="var(--primary-hl)" filter="url(#endGlow)" />
-          </motion.g>
-        </>
-      )}
+      {/* Decorative mode: no SVG dots (circles distort with preserveAspectRatio="none").
+          Endpoint glow is rendered as an HTML element in the parent (Hero.tsx). */}
 
       {/* End data point + label — hidden in decorative mode */}
       {!decorative && (

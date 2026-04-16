@@ -41,12 +41,12 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.4, ease: EASE.out }}
         >
           <h1
-            className="leading-[1.1] tracking-[-1px] text-foreground"
+            className="leading-[1.1] text-foreground"
             style={{
               fontFamily: "var(--font-chinese-sans)",
-              fontSize: "clamp(20px, 3.2vw, 38px)",
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               fontWeight: 300,
-              letterSpacing: "0em",
+              letterSpacing: "0.02em",
             }}
           >
             {REPORT_META.title}
@@ -55,7 +55,7 @@ export function Hero() {
             className="leading-[1.1] text-foreground-3"
             style={{
               fontFamily: "var(--font-chinese-sans)",
-              fontSize: "clamp(14px, 2.2vw, 24px)",
+              fontSize: "clamp(16px, 2.6vw, 32px)",
               fontWeight: 300,
             }}
           >
@@ -71,14 +71,13 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.8, ease: EASE.out }}
         >
           <div
-            className="leading-[0.88] tracking-[-0.045em]"
+            className="leading-[0.88] tracking-[-0.03em]"
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-mono)",
               fontSize: "clamp(88px, 18vw, 200px)",
               color: "var(--primary-hl)",
               fontWeight: 500,
-              fontVariationSettings: "'opsz' 72",
-              fontFeatureSettings: '"cv01", "ss03", "tnum"',
+              fontFeatureSettings: '"tnum"',
             }}
           >
             <RollingNumber
@@ -138,6 +137,21 @@ export function Hero() {
         transition={{ duration: 1.2, delay: 2.6, ease: EASE.out }}
       >
         <GrowthCurve className="w-full h-full" decorative />
+        {/* Endpoint glow — HTML element so it stays a perfect circle despite SVG stretch */}
+        <motion.div
+          className="absolute rounded-full"
+          style={{
+            right: "0%",
+            top: "1.5%",
+            width: 7,
+            height: 7,
+            background: "var(--primary-hl)",
+            boxShadow: "0 0 14px 5px oklch(0.73 0.185 48 / 0.55)",
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 3.6, ease: EASE.bounce }}
+        />
       </motion.div>
 
       {/* Data deadline */}
