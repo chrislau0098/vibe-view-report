@@ -6,7 +6,7 @@ import {
   motion,
   useInView,
 } from "motion/react";
-import { EASE } from "@/lib/easings";
+
 
 interface RollingNumberProps {
   value: number;
@@ -47,7 +47,9 @@ export function RollingNumber({
     const controls = animate(mv, value, {
       duration,
       delay,
-      ease: EASE.out,
+      // [0.25, 1, 0.5, 1]: gentler start than EASE.out so digits don't race
+      // past too quickly; decelerates smoothly into the final value
+      ease: [0.25, 1, 0.5, 1],
     });
     return () => controls.stop();
   }, [inView, value, duration, delay, mv, prefersReducedMotion]);

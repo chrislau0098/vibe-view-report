@@ -76,15 +76,19 @@ export function SectionViewership() {
                     transition={{ duration: 2.0, delay: 0.4, ease: EASE.out }}
                     style={{ rotate: -90, transformOrigin: "100px 100px" }}
                   />
-                  {/* Center: percentage — vertically centered in ring */}
-                  <text x="100" y="97" textAnchor="middle" fontSize="26"
+                  {/* Center: percentage — dominantBaseline="central" anchors
+                      the em-box middle at y, so y=91/y=109 centers the two-
+                      line group at the ring's geometric center (100,100). */}
+                  <text x="100" y="91" textAnchor="middle" fontSize="26"
+                    dominantBaseline="central"
                     fill="var(--primary-hl)"
                     fontFamily="'Geist Variable', monospace"
                     fontWeight="400"
                     style={{ fontFeatureSettings: '"tnum"' }}>
                     68.2%
                   </text>
-                  <text x="100" y="113" textAnchor="middle" fontSize="9.5"
+                  <text x="100" y="109" textAnchor="middle" fontSize="9.5"
+                    dominantBaseline="central"
                     fill="var(--foreground-3)"
                     fontFamily="var(--font-chinese-sans)">
                     视频号占全网比

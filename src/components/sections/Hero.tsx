@@ -45,7 +45,7 @@ export function Hero() {
             style={{
               fontFamily: "var(--font-chinese-sans)",
               fontSize: "clamp(28px, 4.2vw, 52px)",
-              fontWeight: 300,
+              fontWeight: 450,
               letterSpacing: "0.02em",
             }}
           >
@@ -71,9 +71,9 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.8, ease: EASE.out }}
         >
           <div
-            className="leading-[0.88] tracking-[-0.03em]"
+            className="leading-[0.88] tracking-[-0.04em]"
             style={{
-              fontFamily: "var(--font-mono)",
+              fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: "clamp(88px, 18vw, 200px)",
               color: "var(--primary-hl)",
               fontWeight: 500,
