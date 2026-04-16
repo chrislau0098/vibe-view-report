@@ -47,12 +47,12 @@ export function SectionExposure() {
 
         {/* Full-width typographic equation */}
         <div className="space-y-2">
-          {/* Labels row */}
+          {/* Labels row — desktop only (invisible on mobile) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid gap-4 items-end"
+            className="hidden md:grid gap-4 items-end"
             style={{ gridTemplateColumns: "1fr auto auto auto 1fr" }}
           >
             <p className="text-foreground-3 text-xs tracking-wider uppercase">{online.label}</p>
@@ -62,12 +62,14 @@ export function SectionExposure() {
             <p className="text-foreground-3 text-xs tracking-wider uppercase">{total.label}</p>
           </motion.div>
 
-          {/* Equation row */}
+          {/* Equation row
+              Mobile  (< md): flex-col stacked — online → ×2.78= → total
+              Desktop (≥ md): 5-column grid   — online × 2.78 [gap] = total  */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, ease: EASE.out, delay: 0.25 }}
-            className="grid gap-3 md:gap-5 items-baseline"
+            className="flex flex-col md:grid gap-3 md:gap-5 md:items-baseline"
             style={{ gridTemplateColumns: "1fr auto auto auto 1fr" }}
           >
             {/* Online */}
@@ -90,30 +92,37 @@ export function SectionExposure() {
               />
             </div>
 
-            {/* × 2.78 operator — inline on one line */}
+            {/* × 2.78 operator — includes "=" on mobile so it reads as one compact row */}
             <motion.div
               initial={{ opacity: 0, scale: 0.6 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.85, ease: EASE.bounce }}
-              className="text-center whitespace-nowrap"
+              className="flex items-baseline gap-3 whitespace-nowrap"
             >
               <span
                 className="text-primary tabular-nums"
-                style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(28px, 5vw, 56px)", fontWeight: 600 }}
+                style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(22px, 4vw, 56px)", fontWeight: 600 }}
               >
                 × 2.78
               </span>
+              {/* "=" visible only on mobile (inline with ×2.78) */}
+              <span
+                className="text-foreground-3 md:hidden"
+                style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(22px, 4vw, 56px)", fontWeight: 300 }}
+              >
+                =
+              </span>
             </motion.div>
 
-            {/* Spacer */}
-            <div />
+            {/* Spacer — desktop grid only */}
+            <div className="hidden md:block" />
 
-            {/* = operator */}
+            {/* = operator — desktop grid only */}
             <motion.span
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.4, delay: 1.0 }}
-              className="text-foreground-3"
+              className="hidden md:block text-foreground-3"
               style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(28px, 5vw, 56px)", fontWeight: 300 }}
             >
               =

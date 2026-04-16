@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { EASE } from "@/lib/easings";
 
 type Position = "top-center" | "top-left" | "top-right" | "bottom-center";
@@ -26,12 +26,13 @@ export function SpotlightGradient({
   animate: shouldAnimate = false,
   className,
 }: SpotlightGradientProps) {
+  const prefersReducedMotion = useReducedMotion();
   const isOrange = hue === "orange";
   const gradient = isOrange
     ? `radial-gradient(ellipse 1200px 600px at 50% 0%, oklch(0.65 0.175 42 / ${0.18 * intensity}), transparent 70%)`
     : `radial-gradient(ellipse 1000px 500px at 20% 0%, oklch(0.45 0.10 240 / ${0.15 * intensity}), transparent 65%)`;
 
-  if (shouldAnimate) {
+  if (shouldAnimate && !prefersReducedMotion) {
     return (
       <motion.div
         className={`pointer-events-none absolute ${positionStyles[position]} h-[600px] ${className ?? ""}`}
