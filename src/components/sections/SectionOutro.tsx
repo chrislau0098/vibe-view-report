@@ -12,7 +12,7 @@ export function SectionOutro() {
     <section
       ref={ref}
       className="relative overflow-hidden py-32 md:py-56 px-6"
-      style={{ background: "oklch(0.09 0.008 260)" }}
+      style={{ background: "oklch(0.14 0.012 260)" }}
     >
       {/* Multi-layer background atmosphere */}
       <SpotlightGradient position="bottom-center" hue="orange" intensity={0.6} />

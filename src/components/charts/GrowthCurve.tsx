@@ -19,8 +19,8 @@ export function GrowthCurve({ className, decorative = false }: GrowthCurveProps)
   // Decorative: undulating path (起伏效果) — starts/ends 3 units from SVG edge
   // so the curve doesn't visually hug the screen boundary.
   // Two states for breathing animation; pathA is the initial/rest shape.
-  const pathA = "M 3,196 C 55,194 100,174 150,152 C 195,132 215,148 260,122 C 300,98 355,20 397,4";
-  const pathB = "M 3,192 C 55,190 100,169 150,147 C 195,127 215,143 260,117 C 300,93 355,17 397,8";
+  const pathA = "M 3,196 C 55,194 100,174 150,152 C 195,132 215,148 260,122 C 300,98 345,20 384,4";
+  const pathB = "M 3,192 C 55,190 100,169 150,147 C 195,127 215,143 260,117 C 300,93 345,17 384,8";
 
   // Default: multi-segment path that matches year-over-year data shape
   const curvePath = decorative ? pathA

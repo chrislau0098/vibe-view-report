@@ -115,8 +115,8 @@ export function Hero() {
           aria-hidden="true"
           className="flex flex-col items-center gap-1.5 text-foreground-3 text-xs tracking-widest"
           initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 1, 0.6, 1] }}
-          transition={{ duration: 1, delay: 4.5, repeat: Infinity, repeatDelay: 2 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ duration: 1, delay: 4.5 }}
         >
           <span>向下滚动</span>
           <motion.span
@@ -141,7 +141,7 @@ export function Hero() {
         <motion.div
           className="absolute rounded-full"
           style={{
-            right: "0%",
+            right: "40px",
             top: "1.5%",
             width: 7,
             height: 7,

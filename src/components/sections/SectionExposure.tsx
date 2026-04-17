@@ -52,7 +52,7 @@ export function SectionExposure() {
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:grid gap-4 items-end"
+            className="hidden md:grid gap-5 items-end"
             style={{ gridTemplateColumns: "1fr auto auto auto 1fr" }}
           >
             <p className="text-foreground-3 text-xs tracking-wider uppercase">{online.label}</p>
