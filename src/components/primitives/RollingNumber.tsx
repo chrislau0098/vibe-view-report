@@ -45,7 +45,6 @@ export function RollingNumber({
       <AnimateNumber
         style={{ fontFeatureSettings: '"cv01", "ss03", "tnum"' }}
         transition={{
-          layout: { duration: duration * 0.4 },
           y: {
             type: "spring",
             visualDuration: duration,

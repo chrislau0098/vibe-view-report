@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import { motion, useReducedMotion, useInView } from "motion/react";
 import { EASE } from "@/lib/easings";
 
 type Position = "top-center" | "top-left" | "top-right" | "bottom-center";
@@ -26,7 +27,11 @@ export function SpotlightGradient({
   animate: shouldAnimate = false,
   className,
 }: SpotlightGradientProps) {
+  const ref = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  // Pause infinite animation when the host section is off-screen
+  const visible = useInView(ref, { margin: "200px 0px" });
+
   const isOrange = hue === "orange";
   const gradient = isOrange
     ? `radial-gradient(ellipse 1200px 600px at 50% 0%, oklch(0.65 0.175 42 / ${0.18 * intensity}), transparent 70%)`
@@ -35,12 +40,13 @@ export function SpotlightGradient({
   if (shouldAnimate && !prefersReducedMotion) {
     return (
       <motion.div
+        ref={ref}
         className={`pointer-events-none absolute ${positionStyles[position]} h-[600px] ${className ?? ""}`}
         style={{ background: gradient }}
-        animate={{ x: [0, 40, -30, 0], opacity: [1, 0.85, 1, 0.9, 1] }}
+        animate={visible ? { x: [0, 40, -30, 0], opacity: [1, 0.85, 1, 0.9, 1] } : { x: 0, opacity: 1 }}
         transition={{
           duration: 7,
-          repeat: Infinity,
+          repeat: visible ? Infinity : 0,
           ease: EASE.inOut,
           times: [0, 0.3, 0.6, 1],
         }}
@@ -50,6 +56,7 @@ export function SpotlightGradient({
 
   return (
     <div
+      ref={ref}
       className={`pointer-events-none absolute ${positionStyles[position]} h-[600px] ${className ?? ""}`}
       style={{ background: gradient }}
     />

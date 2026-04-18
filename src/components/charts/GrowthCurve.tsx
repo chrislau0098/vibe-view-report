@@ -20,7 +20,6 @@ export function GrowthCurve({ className, decorative = false }: GrowthCurveProps)
   // so the curve doesn't visually hug the screen boundary.
   // Two states for breathing animation; pathA is the initial/rest shape.
   const pathA = "M 3,196 C 55,194 100,174 150,152 C 195,132 215,148 260,122 C 300,98 345,20 384,4";
-  const pathB = "M 3,192 C 55,190 100,169 150,147 C 195,127 215,143 260,117 C 300,93 345,17 384,8";
 
   // Default: multi-segment path that matches year-over-year data shape
   const curvePath = decorative ? pathA
@@ -71,21 +70,10 @@ export function GrowthCurve({ className, decorative = false }: GrowthCurveProps)
         strokeWidth={decorative ? "0.8" : "2.5"}
         strokeLinecap="round"
         initial={{ pathLength: 0, opacity: 0 }}
-        animate={inView ? {
-          pathLength: 1,
-          opacity: 1,
-          ...(decorative ? { d: pathB } : {}),
-        } : {}}
+        animate={inView ? { pathLength: 1, opacity: 1 } : {}}
         transition={decorative ? {
           pathLength: { duration: 3.2, ease: EASE.out },
           opacity: { duration: 0.6 },
-          d: {
-            delay: 3.6,         // starts after draw completes
-            duration: 5,
-            repeat: Infinity,
-            repeatType: "reverse" as const,
-            ease: [0.45, 0, 0.55, 1], // EASE.spring — gentle breathe
-          },
         } : {
           duration: 2.4,
           ease: EASE.out,
