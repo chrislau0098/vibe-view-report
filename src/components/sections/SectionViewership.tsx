@@ -8,6 +8,9 @@ import { SpotlightGradient } from "@/components/primitives/SpotlightGradient";
 
 const total = STATS.totalViewers;
 const video = STATS.videoViewers;
+const peak = STATS.videoViewersPeak;
+const reservation = STATS.videoViewersReservation;
+const globalReservation = STATS.reservations;
 const RATIO = 68.2;
 const CIRCUMFERENCE = 2 * Math.PI * 80;
 
@@ -206,6 +209,43 @@ export function SectionViewership() {
             >
               视频号成为本届主阵地，占据超三分之二观看份额
             </motion.p>
+
+            {/* 视频号扩展指标 */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease: EASE.out, delay: 1.5 }}
+              className="border-t border-border-strong pt-5 mt-2 space-y-3"
+            >
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { label: peak.label, value: peak.value, unit: peak.unit, badge: `+${peak.delta?.value}%` },
+                  { label: reservation.label, value: reservation.value, unit: reservation.unit, badge: `+${reservation.delta?.value}%` },
+                  { label: globalReservation.label, value: globalReservation.value, unit: globalReservation.unit, badge: null },
+                ].map((item) => (
+                  <div key={item.label} className="space-y-1">
+                    <p className="text-foreground-3 text-[10px] tracking-wider leading-tight" style={{ fontWeight: 300 }}>
+                      {item.label}
+                    </p>
+                    <p
+                      className="tabular-nums leading-none"
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "clamp(18px, 2.5vw, 26px)",
+                        color: "var(--primary-hl)",
+                        fontWeight: 500,
+                        fontFeatureSettings: '"tnum"',
+                      }}
+                    >
+                      {item.value}<span className="text-[0.5em] font-normal ml-[0.05em] text-foreground-2">{item.unit}</span>
+                    </p>
+                    {item.badge && (
+                      <p className="text-[10px] text-foreground-3" style={{ fontWeight: 300 }}>{item.badge} 同比</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

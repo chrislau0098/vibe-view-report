@@ -39,7 +39,7 @@ export function SectionGrowth() {
           transition={{ duration: 0.6, ease: EASE.out }}
           className="mb-14"
         >
-          <ChapterStamp number={5} />
+          <ChapterStamp number={6} />
         </motion.div>
 
         <motion.div
@@ -71,7 +71,7 @@ export function SectionGrowth() {
           className="text-foreground-2 text-base mb-6 leading-relaxed"
           style={{ maxWidth: "44ch", fontWeight: 300 }}
         >
-          从 2850 万到 4765.7 万，四年持续上扬的时间曲线。
+          从 2251 万到 4765.7 万，四届跨年持续上扬的时间曲线。
         </motion.p>
 
         {/* Chart label */}
@@ -82,7 +82,7 @@ export function SectionGrowth() {
           className="text-foreground-3 text-xs tracking-wider uppercase mb-4"
           style={{ fontWeight: 300 }}
         >
-          全网直播观看 · 2023–2026（万人）
+          全网直播观看 · 22-23 至 25-26（万人）
         </motion.p>
 
         {/* Chart — bleed to section edges */}
@@ -106,7 +106,7 @@ export function SectionGrowth() {
                 fontVariationSettings: "'opsz' 72",
               }}
             >
-              +33.85%
+              +{STATS.totalViewers.delta?.value}%
             </div>
           </div>
         </motion.div>

@@ -6,6 +6,7 @@ import { SectionViewership } from "@/components/sections/SectionViewership";
 import { SectionExposure } from "@/components/sections/SectionExposure";
 import { SectionDepth } from "@/components/sections/SectionDepth";
 import { SectionScale } from "@/components/sections/SectionScale";
+import { SectionEngagement } from "@/components/sections/SectionEngagement";
 import { SectionGrowth } from "@/components/sections/SectionGrowth";
 import { SectionOutro } from "@/components/sections/SectionOutro";
 import { QuoteInterstitial } from "@/components/sections/QuoteInterstitial";
@@ -17,6 +18,7 @@ const SECTION_IDS = [
   "section-exposure",
   "section-depth",
   "section-scale",
+  "section-engagement",
   "section-growth",
   "section-outro",
 ];
@@ -73,6 +75,7 @@ export default function App() {
         />
         <div id="section-depth"><SectionDepth /></div>
         <div id="section-scale"><SectionScale /></div>
+        <div id="section-engagement"><SectionEngagement /></div>
         <div id="section-growth"><SectionGrowth /></div>
         <QuoteInterstitial
           quote="四年，四千七百万人，和时间做朋友，是这个时代最好的选择"
