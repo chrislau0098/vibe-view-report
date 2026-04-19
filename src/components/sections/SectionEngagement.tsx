@@ -135,24 +135,25 @@ export function SectionEngagement() {
                 <p className="text-foreground-3 text-[10px] uppercase tracking-wider" style={{ fontWeight: 300 }}>
                   {stationViews.label}
                 </p>
-                <div
-                  className="leading-[0.85] tracking-[-0.04em]"
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "clamp(32px, 5vw, 52px)",
-                    color: "var(--foreground)",
-                    fontWeight: 400,
-                    fontFeatureSettings: '"tnum"',
-                  }}
-                >
-                  <RollingNumber
-                    value={+(stationViews.value / 10000).toFixed(1)}
-                    precision={1}
-                    suffix="万次"
-                    duration={1.6}
-                    delay={0.6}
-                    suffixClassName="text-[0.4em] font-normal ml-[0.05em] text-foreground-3"
-                  />
+                <div className="flex flex-col gap-1.5">
+                  <div
+                    className="leading-[0.9] tracking-[-0.04em]"
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "clamp(28px, 4.5vw, 48px)",
+                      color: "var(--foreground)",
+                      fontWeight: 400,
+                      fontFeatureSettings: '"tnum"',
+                    }}
+                  >
+                    <RollingNumber
+                      value={+(stationViews.value / 10000).toFixed(1)}
+                      precision={1}
+                      duration={1.6}
+                      delay={0.6}
+                    />
+                  </div>
+                  <span className="text-foreground-3 text-xs" style={{ fontWeight: 300 }}>万次</span>
                 </div>
               </div>
 
@@ -161,24 +162,25 @@ export function SectionEngagement() {
                 <p className="text-foreground-3 text-[10px] uppercase tracking-wider" style={{ fontWeight: 300 }}>
                   {stationInteractions.label}
                 </p>
-                <div
-                  className="leading-[0.85] tracking-[-0.04em]"
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "clamp(32px, 5vw, 52px)",
-                    color: "var(--foreground)",
-                    fontWeight: 400,
-                    fontFeatureSettings: '"tnum"',
-                  }}
-                >
-                  <RollingNumber
-                    value={+(stationInteractions.value / 10000).toFixed(1)}
-                    precision={1}
-                    suffix="万条"
-                    duration={1.6}
-                    delay={0.7}
-                    suffixClassName="text-[0.4em] font-normal ml-[0.05em] text-foreground-3"
-                  />
+                <div className="flex flex-col gap-1.5">
+                  <div
+                    className="leading-[0.9] tracking-[-0.04em]"
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "clamp(28px, 4.5vw, 48px)",
+                      color: "var(--foreground)",
+                      fontWeight: 400,
+                      fontFeatureSettings: '"tnum"',
+                    }}
+                  >
+                    <RollingNumber
+                      value={+(stationInteractions.value / 10000).toFixed(1)}
+                      precision={1}
+                      duration={1.6}
+                      delay={0.7}
+                    />
+                  </div>
+                  <span className="text-foreground-3 text-xs" style={{ fontWeight: 300 }}>万条</span>
                 </div>
               </div>
             </div>
@@ -190,7 +192,7 @@ export function SectionEngagement() {
               transition={{ duration: 0.7, ease: EASE.out, delay: 0.8 }}
               className="flex items-center gap-6 py-4 border-t border-border-strong"
             >
-              <svg width="88" height="88" viewBox="0 0 120 120" className="shrink-0 overflow-visible">
+              <svg width="106" height="106" viewBox="0 0 120 120" className="shrink-0 overflow-visible">
                 <defs>
                   <linearGradient id="showRateGrad" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stopColor="oklch(0.65 0.175 42)" />
@@ -210,7 +212,7 @@ export function SectionEngagement() {
                   transition={{ duration: 1.8, delay: 0.9, ease: EASE.out }}
                   style={{ rotate: -90, transformOrigin: "60px 60px" }}
                 />
-                <text x="60" y="56" textAnchor="middle" fontSize="18"
+                <text x="60" y="55" textAnchor="middle" fontSize="20"
                   dominantBaseline="central"
                   fill="var(--primary-hl)"
                   fontFamily="'Geist Variable', monospace"
@@ -218,7 +220,7 @@ export function SectionEngagement() {
                   style={{ fontFeatureSettings: '"tnum"' }}>
                   {SHOW_RATE}%
                 </text>
-                <text x="60" y="74" textAnchor="middle" fontSize="8"
+                <text x="60" y="76" textAnchor="middle" fontSize="11"
                   dominantBaseline="central"
                   fill="var(--foreground-3)"
                   fontFamily="var(--font-chinese-sans)">

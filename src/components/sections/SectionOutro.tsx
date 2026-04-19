@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { EASE } from "@/lib/easings";
 import { REPORT_META } from "@/data";
-import { SpotlightGradient } from "@/components/primitives/SpotlightGradient";
 
 export function SectionOutro() {
   const ref = useRef<HTMLElement>(null);
@@ -12,30 +11,19 @@ export function SectionOutro() {
     <section
       ref={ref}
       className="relative overflow-hidden py-32 md:py-56 px-6"
-      style={{ background: "oklch(0.14 0.012 260)" }}
+      style={{ background: "var(--background)" }}
     >
-      {/* Multi-layer background atmosphere */}
-      <SpotlightGradient position="bottom-center" hue="orange" intensity={0.6} />
+      {/* Multi-layer background atmosphere — percentage widths fill wide viewports */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-[400px]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[700px]"
         style={{
-          background: "radial-gradient(ellipse 900px 350px at 50% 100%, oklch(0.65 0.175 42 / 0.12), transparent 70%)",
+          background: "radial-gradient(ellipse 140% 700px at 50% 100%, oklch(0.65 0.175 42 / 0.30), transparent 65%)",
         }}
       />
-      {/* Noise texture overlay */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[400px]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
-          opacity: 0.025,
-          mixBlendMode: "overlay",
-        }}
-      />
-      {/* Horizontal gradient vignette */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: "linear-gradient(to bottom, transparent 0%, oklch(0.07 0.006 260 / 0.6) 100%)",
+          background: "radial-gradient(ellipse 100% 400px at 50% 100%, oklch(0.73 0.185 48 / 0.18), transparent 70%)",
         }}
       />
 

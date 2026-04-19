@@ -141,8 +141,8 @@ export function Hero() {
         <motion.div
           className="absolute rounded-full"
           style={{
-            right: "40px",
-            top: "1.5%",
+            right: "4%",
+            top: "2%",
             width: 7,
             height: 7,
             background: "var(--primary-hl)",

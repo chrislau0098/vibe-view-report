@@ -21,7 +21,7 @@ export function YoYChart() {
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: EASE.out }}
-      className="w-full h-full"
+      className="relative w-full h-full"
     >
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={YOY_CURVE} margin={{ top: 16, right: 80, bottom: 8, left: 0 }}>
@@ -36,14 +36,6 @@ export function YoYChart() {
               <stop offset="0%" stopColor="var(--chart-1)" stopOpacity="0.12" />
               <stop offset="100%" stopColor="var(--chart-1)" stopOpacity="0" />
             </linearGradient>
-            {/* Endpoint glow filter */}
-            <filter id="dotGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="4" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
           </defs>
 
           <XAxis
@@ -81,10 +73,15 @@ export function YoYChart() {
             dot={(props) => {
               const { cx, cy, index } = props as { cx: number; cy: number; index: number };
               if (index !== YOY_CURVE.length - 1) return <g key={`dot-${index}`} />;
+              // No SVG filter — filter's glow gets clipped asymmetrically by Recharts'
+              // chart clipPath when the point is near the top margin, making the dot
+              // appear lower than the line endpoint. Concentric circles give equal visual
+              // weight in all directions without any filter clipping.
               return (
-                <g key={`dot-${index}`} filter="url(#dotGlow)">
-                  <circle cx={cx} cy={cy} r={10} fill="var(--primary-hl)" opacity={0.2} />
-                  <circle cx={cx} cy={cy} r={5} fill="var(--primary-hl)" />
+                <g key={`dot-${index}`}>
+                  <circle cx={cx} cy={cy} r={11} fill="var(--primary-hl)" opacity={0.08} />
+                  <circle cx={cx} cy={cy} r={6} fill="var(--primary-hl)" opacity={0.22} />
+                  <circle cx={cx} cy={cy} r={3.5} fill="var(--primary-hl)" />
                 </g>
               );
             }}
@@ -92,6 +89,15 @@ export function YoYChart() {
           />
         </AreaChart>
       </ResponsiveContainer>
+
+      {/* Left-to-right reveal curtain */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "var(--background)", transformOrigin: "right center" }}
+        initial={{ scaleX: 1 }}
+        animate={inView ? { scaleX: 0 } : { scaleX: 1 }}
+        transition={{ duration: 1.6, delay: 0.5, ease: EASE.out }}
+      />
     </motion.div>
   );
 }

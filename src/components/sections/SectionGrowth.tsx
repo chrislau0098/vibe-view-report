@@ -60,7 +60,7 @@ export function SectionGrowth() {
               letterSpacing: "-0.02em",
             }}
           >
-            做时间的朋友的第四年
+            数据见证，持续向上的时间曲线
           </h2>
         </motion.div>
 
@@ -71,7 +71,7 @@ export function SectionGrowth() {
           className="text-foreground-2 text-base mb-6 leading-relaxed"
           style={{ maxWidth: "44ch", fontWeight: 300 }}
         >
-          从 2251 万到 4765.7 万，四届跨年持续上扬的时间曲线。
+          从 2251 万到 4765.7 万，近四届跨年观看人数持续攀升，每届都在刷新记录。
         </motion.p>
 
         {/* Chart label */}
